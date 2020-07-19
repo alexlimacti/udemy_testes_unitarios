@@ -1,4 +1,4 @@
-package com.indeas;
+package com.indeas.servicos;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import com.indeas.entidades.Usuario;
 import com.indeas.servicos.LocacaoService;
 import com.indeas.utils.DataUtils;
 
-public class TestesUnitarios {
+public class LocacaoServiceTest {
 	
 	@Test
 	public void testes() {
@@ -25,9 +25,11 @@ public class TestesUnitarios {
 		film.setPrecoLocacao(10.5);
 		
 		Locacao locacao = ls.alugarFilme(user, film);
-		Assert.assertTrue(locacao.getValor() == 9.5);
+		
+		Assert.assertEquals(9.5, locacao.getValor(), 0.01);
 		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
 		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		
 	}
 
 }
