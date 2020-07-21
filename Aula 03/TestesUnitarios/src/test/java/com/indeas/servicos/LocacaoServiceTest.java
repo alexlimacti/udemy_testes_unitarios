@@ -1,15 +1,18 @@
 package com.indeas.servicos;
 
+import static com.indeas.utils.DataUtils.isMesmaData;
+import static com.indeas.utils.DataUtils.obterDataComDiferencaDias;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.Date;
 
-import org.junit.Assert;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import com.indeas.entidades.Filme;
 import com.indeas.entidades.Locacao;
 import com.indeas.entidades.Usuario;
-import com.indeas.servicos.LocacaoService;
-import com.indeas.utils.DataUtils;
 
 public class LocacaoServiceTest {
 	
@@ -26,9 +29,10 @@ public class LocacaoServiceTest {
 		
 		Locacao locacao = ls.alugarFilme(user, film);
 		
-		Assert.assertEquals(9.5, locacao.getValor(), 0.01);
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		assertThat(locacao.getValor(), is(CoreMatchers.equalTo(10.5)));
+		assertThat(locacao.getValor(), is(CoreMatchers.not(6.0)));
+		assertThat(isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		assertThat(isMesmaData(locacao.getDataRetorno(), obterDataComDiferencaDias(1)), is(true));
 		
 	}
 
