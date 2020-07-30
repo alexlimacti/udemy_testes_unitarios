@@ -9,9 +9,25 @@ import com.indeas.entidades.Locacao;
 import com.indeas.entidades.Usuario;
 import com.indeas.utils.DataUtils;
 
+import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
+import br.ce.wcaquino.exceptions.LocadoraException;
+
 public class LocacaoService {
 
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException {
+		
+		if(usuario == null) {
+			throw new LocadoraException("Usuario vazio");
+		}
+		
+		if(filme == null) {
+			throw new LocadoraException("Filme vazio");
+		}
+		
+		if(filme.getEstoque() == 0) {
+			throw new FilmeSemEstoqueException();
+		}
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
@@ -29,7 +45,7 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FilmeSemEstoqueException, LocadoraException {
 		LocacaoService ls = new LocacaoService();
 		Usuario user = new Usuario();
 		Filme film = new Filme();
