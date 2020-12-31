@@ -1,4 +1,4 @@
-package br.ce.wcaquino.exceptions;
+package com.indeas.exceptions;
 
 public class LocadoraException extends Exception {
 
