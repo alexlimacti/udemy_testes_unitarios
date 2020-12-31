@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mockito;
 
 import com.indeas.daos.LocacaoDAO;
 import com.indeas.daos.LocacaoDAOFake;
@@ -25,6 +26,7 @@ import com.indeas.entidades.Usuario;
 import com.indeas.exceptions.FilmeSemEstoqueException;
 import com.indeas.exceptions.LocadoraException;
 import com.indeas.servicos.LocacaoService;
+import com.indeas.servicos.SPCService;
 
 @RunWith(Parameterized.class)
 public class CalculoValorLocacaoTest {
@@ -45,6 +47,8 @@ public class CalculoValorLocacaoTest {
 		service = new LocacaoService();
 		LocacaoDAO dao = new LocacaoDAOFake();
 		service.setLocacaoDAO(dao);
+		SPCService spcService = Mockito.mock(SPCService.class);
+		service.setSpcService(spcService);
 	}
 	
 	private static Filme filme1 = umFilme().agora();
